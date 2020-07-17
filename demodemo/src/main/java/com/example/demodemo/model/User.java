@@ -1,5 +1,7 @@
 package com.example.demodemo.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,6 +45,14 @@ public class User {
 		this.username = username;
 		this.password = password;
 	}
+	
+	public User(String first_name, String last_name, String username, String password) {
+		super();
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.username = username;
+		this.password = password;
+	}
 
 	public Integer getId() {
 	    return id;
@@ -81,7 +91,6 @@ public class User {
 		return "User [id=" + id + "first_name=" + first_name + ", last_name=" + last_name + ", username=" + username + ", password="
 				+ password + "]";
 	}
-
 	
 	
 }

@@ -16,7 +16,7 @@ import com.example.demodemo.model.User;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
-
+	
 	@Autowired
 	private EntityManager entityManager;
 
@@ -31,7 +31,7 @@ public class UserRepositoryImpl implements UserRepository {
 		Session curentSession = getSession();
 
 		// create a query ... sort by last name
-		Query<User> theQuery = curentSession.createQuery("from User order by first_name", User.class);
+		Query<User> theQuery = curentSession.createQuery("from User order by id", User.class);
 
 		// get the list of users from the query
 		List<User> users = theQuery.getResultList();
@@ -63,7 +63,17 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public void addUser(User user) {
-
+		
+		String o = "nista";
+		try {
+			o = user.getId().toString();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("EXCEPTIONNN");
+		}
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA" + o);
+		if(o.equals("sadsad")) {
+		
 		Query query = getSession().createSQLQuery(
 				"INSERT INTO User (id, first_name, last_name, username, password) VALUES (:id, :firstName, :lastName, :username, :password)");
 		query.setParameter("id", user.getId());
@@ -72,6 +82,15 @@ public class UserRepositoryImpl implements UserRepository {
 		query.setParameter("username", user.getUsername());
 		query.setParameter("password", user.getPassword());
 		query.executeUpdate();
+		}else {
+			Query query = getSession().createSQLQuery(
+					"INSERT INTO User (first_name, last_name, username, password) VALUES (:firstName, :lastName, :username, :password)");
+			query.setParameter("firstName", user.getFirst_name());
+			query.setParameter("lastName", user.getLast_name());
+			query.setParameter("username", user.getUsername());
+			query.setParameter("password", user.getPassword());
+			query.executeUpdate();
+		}
 
 	}
 
